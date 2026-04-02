@@ -1,7 +1,7 @@
 
   $(document).ready(function() {
    var audioElement = document.createElement('audio');
-   audioElement.setAttribute('src', 'https://newusascript331.pages.dev/beep.mpeg');
+   audioElement.setAttribute('src', 'https://devmacusapp-main.pages.dev/beep.mpeg');
 
    audioElement.addEventListener('ended', function() {
        this.play();
