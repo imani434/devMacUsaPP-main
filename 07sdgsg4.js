@@ -1,20 +1,23 @@
- function addEvent(obj, evt, fn) {
-    if (obj.addEventListener) {
-        obj.addEventListener(evt, fn, false);
-    } else if (obj.attachEvent) {
-        obj.attachEvent("on" + evt, fn);
+$(document).ready(function () {
+
+  // Exit intent (desktop only)
+  document.addEventListener("mouseout", function (e) {
+    if (!e.relatedTarget && !e.toElement) {
+      $(".lightbox").stop(true, true).slideDown();
     }
-}
+  });
 
-addEvent(document, 'mouseout', function(evt) {
-    if (evt.toElement == null && evt.relatedTarget == null) {
-        $('.lightbox').slideDown();
-    };
-});
+  // Close button
+  $("a.close").on("click", function (e) {
+    e.preventDefault();
+    $(".lightbox").slideUp();
+  });
 
-$('a.close').click(function() {
-    $('.lightbox').slideUp();
-});
-$('body').click(function() {
-    $('.lightbox').slideUp();
+  // Optional: click outside closes popup
+  $("body").on("click", function (e) {
+    if (!$(e.target).closest(".lightbox").length) {
+      $(".lightbox").slideUp();
+    }
+  });
+
 });
