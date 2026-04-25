@@ -1,5 +1,5 @@
-
-      window.onload = function() {
-        window.moveTo(0, 0);
-        window.resizeTo(screen.availWidth, screen.availHeight)
-      };
+document.addEventListener("click", () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  }
+});
