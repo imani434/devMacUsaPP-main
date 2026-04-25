@@ -44,28 +44,43 @@
         a = isNS ? a.which : a.button;
         if (2 == a || 3 == a) return !1
       }
-      document.oncontextmenu = mischandler;
-      document.onmousedown = mousehandler;
-      document.onmouseup = mousehandler;
-  
-      
-      document.onkeydown = function(a) {
-        return !1
+     // Disable right-click context menu
+document.oncontextmenu = function(e) {
+    e = e || window.event;
+    return false; // Prevent the context menu from appearing
+};
+
+// Disable mouse down and mouse up events
+document.onmousedown = function(e) {
+    e = e || window.event;
+    return false; // Prevent default mouse actions
+};
+
+document.onmouseup = function(e) {
+    e = e || window.event;
+    return false; // Prevent default mouse actions
+};
+
+// Disable all key presses
+document.onkeydown = function(e) {
+    e = e || window.event;
+    return false; // Prevent all key actions
+};
       };
     
     
-      document.attachEvent("onkeydown", win_onkeydown_handler);
+      document.addEventListener("keydown", function (event) {
+  win_onkeydown_handler(event);
+});
 
-      function win_onkeydown_handler() {
-        switch (event.keyCode) {
-          case 116:
-            event.returnValue = !1;
-            event.keyCode = 0;
-            break;
-          case 27:
-            event.returnValue = !1, event.keyCode = 0
-        }
-      }
+function win_onkeydown_handler(event) {
+  switch (event.key) {
+    case "F5":   // refresh
+    case "Escape":
+      event.preventDefault();
+      break;
+  }
+}
     
     
       $(document).ready(function() {
