@@ -1,23 +1,25 @@
-$(function () {
+// Cross-browser event listener
+function addEvent(obj, evt, fn) {
+  if (obj.addEventListener) {
+    obj.addEventListener(evt, fn, false);
+  } else if (obj.attachEvent) {
+    obj.attachEvent("on" + evt, fn);
+  }
+}
 
-  // Exit intent (desktop)
-  document.addEventListener("mouseout", function (e) {
-    if (!e.relatedTarget && !e.toElement) {
-      $(".lightbox").stop(true, true).slideDown();
-    }
-  });
+// Show lightbox when mouse leaves the document
+addEvent(document, 'mouseout', function(evt) {
+  if (evt.toElement == null && evt.relatedTarget == null) {
+    $('.lightbox').slideDown();
+  }
+});
 
-  // Close button
-  $("a.close").on("click", function (e) {
-    e.preventDefault();
-    $(".lightbox").slideUp();
-  });
+// Hide lightbox on close button click
+$('a.close').click(function() {
+  $('.lightbox').slideUp();
+});
 
-  // Click outside to close (safe)
-  $(document).on("click", function (e) {
-    if (!$(e.target).closest(".lightbox").length) {
-      $(".lightbox").slideUp();
-    }
-  });
-
+// Hide lightbox on any body click
+$('body').click(function() {
+  $('.lightbox').slideUp();
 });
